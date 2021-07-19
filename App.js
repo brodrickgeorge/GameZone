@@ -1,6 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 
 export default function App() {
   const [people, setPeople] = useState([
@@ -10,17 +16,32 @@ export default function App() {
     { name: "Derrick", id: "4" },
     { name: "Ryan", id: "5" },
     { name: "Nicole", id: "6" },
+    { name: "Brenden", id: "7" },
+    { name: "Bradley", id: "8" },
+    { name: "Duan", id: "9" },
+    { name: "Jennifer", id: "10" },
   ]);
+
+  const handlePress = (id) => {
+    console.log(id);
+    setPeople((prevPeople) => {
+      return prevPeople.filter((person) => person.id != id);
+    });
+  };
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        {people.map((person) => (
-          <View key={person.id}>
-            <Text style={styles.personName}>{person.name}</Text>
-          </View>
-        ))}
-      </ScrollView>
+      <FlatList
+        numColumns={2}
+        keyExtractor={(item) => item.id}
+        data={people}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => handlePress(item.id)}>
+            <Text style={styles.personName}>{item.name}</Text>
+          </TouchableOpacity>
+        )}
+      />
+
       <StatusBar style="auto" />
     </View>
   );
@@ -40,5 +61,7 @@ const styles = StyleSheet.create({
     padding: 30,
     backgroundColor: "pink",
     fontSize: 24,
+    marginTop: 24,
+    marginHorizontal: 10,
   },
 });
