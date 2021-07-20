@@ -23,13 +23,15 @@ export default function App() {
   ]);
 
   const handleSubmit = (text) => {
+    console.log(text);
+
     if (text.length > 3) {
       setTodos((prevTodos) => {
         return [{ text: text, key: Math.random().toString() }, ...prevTodos];
       });
     } else {
-      Alert.alert("Oops!", "Todos must be more than 3 characters long!", [
-        { text: "Understood", onPress: () => console.log("closed alert") },
+      Alert.alert("Oops!", "Todos must be more than 3 characters!", [
+        { text: "Understood" },
       ]);
     }
   };

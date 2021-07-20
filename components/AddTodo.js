@@ -1,14 +1,7 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  Button,
-  SafeAreaView,
-} from "react-native";
+import { SafeAreaView, StyleSheet, TextInput, Button } from "react-native";
 
-export default function AddTodo({ handleSubmit }) {
+export default function AddTodo({handleSubmit}) {
   const [text, setText] = useState("");
 
   const handleChange = (val) => {
@@ -18,15 +11,15 @@ export default function AddTodo({ handleSubmit }) {
   return (
     <SafeAreaView>
       <TextInput
-        style={styles.input}
-        placeholder="New Todo..."
         onChangeText={handleChange}
+        placeholder="Add Todo..."
+        style={styles.input}
       />
       <Button
         onPress={() => handleSubmit(text)}
         title="Add Todo"
         color="coral"
-      ></Button>
+      />
     </SafeAreaView>
   );
 }
