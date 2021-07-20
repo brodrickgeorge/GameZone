@@ -43,7 +43,6 @@ export default function App() {
     <TouchableWithoutFeedback
       onPress={() => {
         Keyboard.dismiss();
-        console.log("dismissed keyboard");
       }}
     >
       <SafeAreaView style={styles.container}>
