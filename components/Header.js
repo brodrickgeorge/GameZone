@@ -1,11 +1,10 @@
 import React from "react";
-
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { StyleSheet, Text, SafeAreaView } from "react-native";
 
 export default function Header() {
   return (
     <SafeAreaView style={styles.header}>
-      <Text style={styles.title}>My Todos</Text>
+      <Text style={styles.title}>Todo</Text>
     </SafeAreaView>
   );
 }
