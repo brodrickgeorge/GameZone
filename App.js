@@ -1,7 +1,18 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  SafeAreaView,
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
+import AddTodo from "./components/AddTodo";
 import Header from "./components/Header";
+import TodoItem from "./components/TodoItem";
 
 export default function App() {
   const [todos, setTodos] = useState([
@@ -10,20 +21,48 @@ export default function App() {
     { text: "play on the switch.", key: "3" },
   ]);
 
+  const handlePress = (key) => {
+    setTodos((prevTodos) => {
+      return prevTodos.filter((todo) => todo.key != key);
+    });
+  };
+
+  const handleSubmit = (text) => {
+    if (text.length > 3) {
+      setTodos((prevTodos) => {
+        return [{ text: text, key: Math.random().toString() }, ...prevTodos];
+      });
+    }
+    {
+      Alert.alert("Oops!", "Todos must be more than 3 characters long!", [
+        { text: "Understood", onPress: () => console.log("closed alert") },
+      ]);
+    }
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Header />
-      <View style={styles.content}>
-        {/*form */}
-        <View style={styles.list}>
-          <FlatList
-            data={todos}
-            renderItem={({ item }) => <Text>{item.text}</Text>}
-          />
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+        console.log("dismissed keyboard");
+      }}
+    >
+      <SafeAreaView style={styles.container}>
+        <Header />
+        <View style={styles.content}>
+          <AddTodo handleSubmit={handleSubmit} />
+          <View style={styles.list}>
+            <FlatList
+              data={todos}
+              renderItem={({ item }) => (
+                <TodoItem item={item} handlePress={handlePress} />
+              )}
+            />
+          </View>
         </View>
-      </View>
-      <StatusBar style="auto" />
-    </SafeAreaView>
+        <StatusBar style="auto" />
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 
