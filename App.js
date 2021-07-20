@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+
 import AddTodo from "./components/AddTodo";
 import Header from "./components/Header";
 import TodoItem from "./components/TodoItem";
@@ -20,12 +21,6 @@ export default function App() {
     { text: "create an app.", key: "2" },
     { text: "play on the switch.", key: "3" },
   ]);
-
-  const handlePress = (key) => {
-    setTodos((prevTodos) => {
-      return prevTodos.filter((todo) => todo.key != key);
-    });
-  };
 
   const handleSubmit = (text) => {
     if (text.length > 3) {
@@ -39,6 +34,12 @@ export default function App() {
     }
   };
 
+  const handlePress = (key) => {
+    setTodos((prevTodos) => {
+      return prevTodos.filter((todo) => todo.key != key);
+    });
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -49,8 +50,9 @@ export default function App() {
         <Header />
         <View style={styles.content}>
           <AddTodo handleSubmit={handleSubmit} />
-          <View style={styles.list}>
+          <View style={styles.content}>
             <FlatList
+              style={styles.list}
               data={todos}
               renderItem={({ item }) => (
                 <TodoItem item={item} handlePress={handlePress} />
